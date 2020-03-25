@@ -2,12 +2,12 @@ export const calculateEMI = (loanInfo) => {
   const { interestRate, loanTenure } = loanInfo
   console.log('input values are:', loanInfo.principal, loanInfo.interestRate, loanInfo.loanTenure)
   const tenureInMonths = convertYearToMonths(loanTenure)
-  const interestRatePerMonth = calculteInterestRatePerMonth(interestRate, tenureInMonths)
-  console.log('interest rate per month:', interestRatePerMonth)
+  const interestPerMonth = calculteInterestPerMonth(interestRate, tenureInMonths)
+  console.log('interest rate per month:', interestPerMonth)
 }
 
-const calculteInterestRatePerMonth = (interestRate, tenureInMonths) => {
-  return interestRate / tenureInMonths
+const calculteInterestPerMonth = (interestRate, tenureInMonths) => {
+  return interestRate / tenureInMonths / 100
 }
 
 const convertYearToMonths = (tenure) => {
