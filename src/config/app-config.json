@@ -1,0 +1,16 @@
+{
+    "region": "ap-south-1",
+    "userPool": "ap-south-1_gTZ8bIrT9",
+    "userPoolBaseUri": "https://coderland.auth.ap-south-1.amazoncognito.com",
+    "clientId": "10ijjirfcor4jekoptcoqk87uj",
+    "callbackUri": {
+        "development": "http://localhost:8080?isRedirected=true",
+        "production": "https://coderland.tax.s3-website.ap-south-1.amazonaws.com?isRedirected=true"
+    },
+    "signoutUri": {
+        "development": "http://localhost:8080",
+        "production": "https://coderland.tax.s3-website.ap-south-1.amazonaws.com"
+    },
+    "tokenScopes": ["aws.cognito.signin.user.admin"]
+}
+
