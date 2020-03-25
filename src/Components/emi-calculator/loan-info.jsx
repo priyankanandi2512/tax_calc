@@ -17,7 +17,6 @@ export default function LoanInfo (props) {
       <h3 className="loan-info__value">
         {props.totalPayable}
       </h3>
-      {/* <hr/> */}
     </div>
   )
 }

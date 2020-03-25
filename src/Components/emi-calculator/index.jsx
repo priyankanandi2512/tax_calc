@@ -5,21 +5,26 @@ import { Col } from '../../common/col'
 import { Card } from '../../common/card'
 import Input from '../../common/input'
 import LoanInfo from './loan-info'
-import { calculateEMI } from '../../utils'
+import { calculateEMI, calculateTotalPayableAmount, calculateTotalInterest } from '../../utils'
 
 export default function EMICalculator () {
+  const [loanEMI, setEMI] = useState(0)
+  const [totalPayableAmount, setAmountPayable] = useState(0)
+  const [totalInterest, setTotalInterest] = useState(0)
   const [loanInfo, setLoanInfo] = useState({
-    loanAmount: 0,
+    principal: 0,
     interestRate: 0,
     loanTenure: 0
   })
 
   useEffect(() => {
-    // const { income, investment } = values
-    // const tax = calculateTax(year, age, income, investment)
-    // setTax(tax)
-    const emi = calculateEMI(loanInfo)
-    console.log('in use effect:', emi)
+    const loanEMI = calculateEMI(loanInfo)
+    const totalPayableAmount = calculateTotalPayableAmount(loanEMI, loanInfo.loanTenure)
+    const totalInterest = calculateTotalInterest(loanInfo.principal, totalPayableAmount)
+    setEMI(loanEMI)
+    setAmountPayable(totalPayableAmount)
+    setTotalInterest(totalInterest)
+    console.log('loan Emi Is:', totalPayableAmount)
   }, [loanInfo])
 
   const handleChange = (event) => {
@@ -29,7 +34,6 @@ export default function EMICalculator () {
     })
   }
 
-  console.log('loan info isssss:', loanInfo)
   return (
     <div className="container">
       <Row>
@@ -38,8 +42,8 @@ export default function EMICalculator () {
             <Input
               type='number'
               label={'Home Loan Amount'}
-              value={loanInfo.loanAmount}
-              name="loanAmount"
+              value={loanInfo.principal}
+              name="principal"
               onChange={handleChange}
             />
             <hr/>
@@ -58,12 +62,15 @@ export default function EMICalculator () {
               name="loanTenure"
               onChange={handleChange}
             />
-            {/* <hr/> */}
           </Card>
         </Col>
         <Col lg={4}>
           <Card xl>
-            <LoanInfo loanEmi={'12000'} totalInterest={'3249502'} totalPayable={'43929929292'}/>
+            <LoanInfo
+              loanEmi={loanEMI}
+              totalInterest={totalInterest}
+              totalPayable={totalPayableAmount}
+            />
           </Card>
         </Col>
         <Col lg={4}>
